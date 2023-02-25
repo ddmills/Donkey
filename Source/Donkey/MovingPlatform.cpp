@@ -9,14 +9,38 @@ AMovingPlatform::AMovingPlatform()
 	SetMobility(EComponentMobility::Movable);
 }
 
+void AMovingPlatform::BeginPlay()
+{
+	Super::BeginPlay();
+
+	GlobalStartLocation = GetActorLocation();
+	GlobalTargetLocation = GetTransform().TransformPosition(TargetLocation);
+
+	if (HasAuthority()) {
+		SetReplicates(true);
+		SetReplicateMovement(true);
+	}
+}
+
 void AMovingPlatform::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
 	if (HasAuthority()) {
 		FVector Location = GetActorLocation();
+		float Distance = (GlobalTargetLocation - GlobalStartLocation).Size();
+		float Travelled = (Location - GlobalStartLocation).Size();
 
-		Location += FVector(Speed * DeltaSeconds, 0, 0);
+		if (Travelled >= Distance)
+		{
+			FVector tmp = GlobalTargetLocation;
+			GlobalTargetLocation = GlobalStartLocation;
+			GlobalStartLocation = tmp;
+		}
+
+		FVector Direction = (GlobalTargetLocation - GlobalStartLocation).GetSafeNormal();
+
+		Location += Direction * DeltaSeconds * Speed;
 
 		SetActorLocation(Location);
 	}
