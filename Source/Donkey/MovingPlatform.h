@@ -17,9 +17,9 @@ class DONKEY_API AMovingPlatform : public AStaticMeshActor
 
 	protected:void BeginPlay() override;
 	protected:void Tick(float DeltaSeconds) override;
-	UPROPERTY(EditAnywhere);
+	UPROPERTY(EditAnywhere)
 	float Speed = 20;
-	UPROPERTY(EditAnywhere, Meta = (MakeEditWidget = true));
+	UPROPERTY(EditAnywhere, Meta = (MakeEditWidget = true))
 	FVector TargetLocation;
 
 	private:FVector GlobalStartLocation;
