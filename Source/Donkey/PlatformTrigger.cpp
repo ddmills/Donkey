@@ -2,6 +2,7 @@
 
 
 #include "PlatformTrigger.h"
+#include "MovingPlatform.h"
 
 #include "Components/BoxComponent.h"
 
@@ -35,10 +36,15 @@ void APlatformTrigger::Tick(float DeltaTime)
 void APlatformTrigger::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	UE_LOG(LogTemp, Warning, TEXT("ACTIVATE"));
+	for (AMovingPlatform* Platform : PlatformsToTrigger) {
+		Platform->AddActiveTrigger();
+	}
 }
 
 void APlatformTrigger::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	UE_LOG(LogTemp, Warning, TEXT("DEACTIVATE"));
+	for (AMovingPlatform* Platform : PlatformsToTrigger) {
+		Platform->RemoveActiveTrigger();
+	}
 }
-

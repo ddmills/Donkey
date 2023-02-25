@@ -26,6 +26,10 @@ void AMovingPlatform::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
+	if (ActiveTriggers <= 0) {
+		return;
+	}
+
 	if (HasAuthority()) {
 		FVector Location = GetActorLocation();
 		float Distance = (GlobalTargetLocation - GlobalStartLocation).Size();
@@ -44,4 +48,16 @@ void AMovingPlatform::Tick(float DeltaSeconds)
 
 		SetActorLocation(Location);
 	}
+}
+
+void AMovingPlatform::RemoveActiveTrigger()
+{
+	if (ActiveTriggers > 0) {
+		ActiveTriggers--;
+	}
+}
+
+void AMovingPlatform::AddActiveTrigger()
+{
+	ActiveTriggers++;
 }

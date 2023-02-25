@@ -24,4 +24,12 @@ class DONKEY_API AMovingPlatform : public AStaticMeshActor
 
 	private:FVector GlobalStartLocation;
 	private:FVector GlobalTargetLocation;
+
+public:
+	void AddActiveTrigger();
+	void RemoveActiveTrigger();
+
+private:
+	UPROPERTY(EditAnywhere)
+	int ActiveTriggers = 1;
 };
