@@ -15,6 +15,12 @@ class DONKEY_API UDonkeyGameInstance : public UGameInstance
 	GENERATED_BODY()
 
 public:
-	UDonkeyGameInstance(const FObjectInitializer &ObjectInitializer);
+	UDonkeyGameInstance(const FObjectInitializer& ObjectInitializer);
 	virtual void Init() override;
+
+	UFUNCTION(Exec)
+	void Host();
+
+	UFUNCTION(Exec)
+	void Join(const FString& Address);
 };
