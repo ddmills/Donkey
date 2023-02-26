@@ -24,6 +24,6 @@ public:
 	UFUNCTION(BlueprintCallable, Exec)
 	void Host();
 
-	UFUNCTION(Exec)
+	UFUNCTION(BlueprintCallable, Exec)
 	void Join(const FString& Address);
 };
