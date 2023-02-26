@@ -14,6 +14,9 @@ class DONKEY_API UDonkeyGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 
+private:
+	TSubclassOf<class UUserWidget> MenuClass;
+
 public:
 	UDonkeyGameInstance(const FObjectInitializer& ObjectInitializer);
 	virtual void Init() override;
@@ -23,4 +26,7 @@ public:
 
 	UFUNCTION(Exec)
 	void Join(const FString& Address);
+
+	UFUNCTION(Exec)
+	void LoadMenu();
 };
